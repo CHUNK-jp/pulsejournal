@@ -53,6 +53,18 @@
   /* Divider */
   .divider { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
   .divider-line { height: 1px; background: #18181B; }
+
+  /* Mobile layout */
+  @media (max-width: 640px) {
+    .nav-link { display: none; }
+    .nav-badge { display: none !important; }
+    .hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .tone-grid { grid-template-columns: 1fr !important; }
+    .feature-grid { grid-template-columns: 1fr !important; }
+    .steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .steps-line { display: none; }
+    .pricing-grid { grid-template-columns: 1fr !important; }
+  }
 </style>
 </head>
 <body>
@@ -72,7 +84,7 @@
         </div>
         <span style="font-size: 14px; font-weight: 600; color: #FAFAFA; letter-spacing: -0.01em;">PulseJournal</span>
       </a>
-      <div style="display: inline-flex; align-items: center; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.18); border-radius: 100px; padding: 3px 10px; flex-shrink: 0;">
+      <div class="nav-badge" style="display: inline-flex; align-items: center; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.18); border-radius: 100px; padding: 3px 10px; flex-shrink: 0;">
         <span style="font-size: 10px; color: #F59E0B; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;">CHUNK-jp Wonder</span>
       </div>
       <div style="flex: 1;"></div>
@@ -85,7 +97,7 @@
 
   <!-- HERO -->
   <section style="max-width: 1100px; margin: 0 auto; padding: 100px 40px 88px;">
-    <div style="display: grid; grid-template-columns: 1fr 460px; gap: 64px; align-items: center;">
+    <div class="hero-grid" style="display: grid; grid-template-columns: 1fr 460px; gap: 64px; align-items: center;">
 
       <!-- Left: Copy -->
       <div>
@@ -112,7 +124,7 @@
       </div>
 
       <!-- Right: Diary card mockup -->
-      <div style="position: relative;">
+      <div style="position: relative; overflow: hidden;">
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0;"></div>
         <div style="position: relative; z-index: 1; background: #111113; border: 1px solid #27272A; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.5);">
           <!-- Window chrome -->
@@ -175,7 +187,7 @@
       <h2 style="font-size: 36px; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 12px;">Your story, your tone.</h2>
       <p style="font-size: 16px; color: #71717A; max-width: 460px; margin: 0 auto; line-height: 1.6;">Same health data. Completely different story. Click a tone to explore.</p>
     </div>
-    <div id="tone-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;"></div>
+    <div id="tone-cards" class="tone-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;"></div>
     <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; background: #111113; border: 1px solid #18181B; border-radius: 10px; flex-wrap: wrap;">
       <span style="font-size: 13px; color: #71717A;">More tones: Sci-Fi Log, Poetic, and custom prompts</span>
       <span style="display: inline-flex; align-items: center; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); border-radius: 100px; padding: 2px 10px; font-size: 11px; color: #F59E0B; font-weight: 500;">Premium</span>
@@ -192,7 +204,7 @@
       <h2 style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">Built around your privacy.</h2>
       <p style="font-size: 15px; color: #71717A; max-width: 480px; line-height: 1.6;">Every feature is designed with local-first in mind. Health data stays on your machine — always.</p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+    <div class="feature-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
 
       <div class="feature-card">
         <div style="width: 40px; height: 40px; background: rgba(59,130,246,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
@@ -255,8 +267,8 @@
       <h2 style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">From data to diary in four steps.</h2>
       <p style="font-size: 15px; color: #71717A; line-height: 1.6;">Nothing complex. Nothing cloud. Just you, your data, and your story.</p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative;">
-      <div style="position: absolute; top: 20px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, #27272A 20%, #27272A 80%, transparent); z-index: 0;"></div>
+    <div class="steps-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; position: relative;">
+      <div class="steps-line" style="position: absolute; top: 20px; left: 60px; right: 60px; height: 1px; background: linear-gradient(to right, transparent, #27272A 20%, #27272A 80%, transparent); z-index: 0;"></div>
 
       <div style="position: relative; z-index: 1;">
         <div style="width: 40px; height: 40px; background: #09090B; border: 1px solid rgba(59,130,246,0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
@@ -302,7 +314,7 @@
       <h2 style="font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;">Simple, honest pricing.</h2>
       <p style="font-size: 15px; color: #71717A; line-height: 1.6;">Free gets you everything you need. Premium takes it further.</p>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 0 auto;">
+    <div class="pricing-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 760px; margin: 0 auto;">
 
       <!-- Free -->
       <div style="padding: 36px; background: #111113; border: 1px solid #18181B; border-radius: 16px;">
