@@ -15,9 +15,9 @@ from pathlib import Path
 import click
 from rich.console import Console
 
-from pulsejournal.ollama_client import check_ollama, generate_entry
+from pulsejournal.ollama_client import GENERATION_MODEL, check_ollama, generate_entry, has_generation_model
 from pulsejournal.parser import parse_export
-from pulsejournal.tones import TONE_CHOICES, TONES
+from pulsejournal.tones import LANG_CHOICES, TONE_CHOICES, TONES
 
 console = Console()
 
@@ -48,8 +48,15 @@ def cli():
     show_default=True,
     help="Narrative voice for the generated entry.",
 )
-def generate(input_path: Path, tone: str):
-    """Generate a diary entry from an Apple Health export."""
+@click.option(
+    "--lang",
+    type=click.Choice(LANG_CHOICES),
+    default="en",
+    show_default=True,
+    help="Language of the generated entry.",
+)
+def generate(input_path: Path, tone: str, lang: str):
+    """Generate a diary entry for the most recent day in an Apple Health export."""
 
     console.print(f"\n[bold amber3]📔 PulseJournal[/bold amber3] — generating [cyan]{TONES[tone]['label']}[/cyan] entry\n")
 
@@ -60,17 +67,21 @@ def generate(input_path: Path, tone: str):
             "  Make sure Ollama is running: [bold]ollama serve[/bold]"
         )
         sys.exit(1)
-    console.print("[green]✓ Ollama connected[/green]\n")
-
-    try:
-        metrics = parse_export(input_path)
-        entry = generate_entry(metrics, tone)
-    except NotImplementedError:
+    if not has_generation_model():
         console.print(
-            "[yellow]Parsing and generation aren't implemented yet — "
-            "this is scaffolding for a follow-up step.[/yellow]"
+            f"[bold red]✗ Model '{GENERATION_MODEL}' isn't pulled yet.[/bold red]\n"
+            f"  Run: [bold]ollama pull {GENERATION_MODEL}[/bold]"
         )
+        sys.exit(1)
+    console.print(f"[green]✓ Ollama connected[/green] (model: {GENERATION_MODEL})\n")
+
+    daily_metrics = parse_export(input_path)
+    if not daily_metrics:
+        console.print("[yellow]No health records found in that export.[/yellow]")
         return
+
+    latest_day = daily_metrics[-1]
+    entry = generate_entry(latest_day, tone, lang)
 
     console.print(entry)
 
